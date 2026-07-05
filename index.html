@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>在线DOCX编辑器 · 分页编辑 · 免费SEO工具</title>
+    <meta name="description" content="免费在线DOCX编辑器，支持分页编辑、实时预览、导出下载。无需注册，SEO友好，移动端适配。文档编辑与SEO工具合二为一。">
+    <meta name="keywords" content="在线DOCX编辑器, 文档编辑, 分页编辑, 免费工具, SEO工具">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://docxeditor.example.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="DOCX在线编辑器SEO工具 · 分页编辑 · 免费">
+    <meta property="og:description" content="免登录、分页编辑、实时预览DOCX。适合快速写作与SEO内容优化。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docxeditor.example.com/">
+    <meta property="og:locale" content="zh_CN">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DOCX在线编辑器SEO工具">
+    <meta name="twitter:description" content="免费在线DOCX编辑器，分页编辑，无需注册。">
+
+    <!-- Inline CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* header / SEO */
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: #475569;
+            max-width: 600px;
+            margin: 8px auto 0;
+            font-size: 1rem;
+        }
+
+        .seo-badge {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1e293b;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* main layout */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .tool-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* editor card */
+        .editor-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            padding: 20px 20px 24px;
+            transition: box-shadow 0.2s;
+        }
+
+        .editor-card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .editor-toolbar button {
+            background: #f1f5f9;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e293b;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .editor-toolbar button:hover {
+            background: #e2e8f0;
+        }
+        .editor-toolbar button:active {
+            transform: scale(0.96);
+        }
+
+        .editor-toolbar .primary-action {
+            background: #0f172a;
+            color: white;
+        }
+        .editor-toolbar .primary-action:hover {
+            background: #1e293b;
+        }
+
+        .page-indicator {
+            margin-left: auto;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 30px;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .editor-textarea {
+            width: 100%;
+            min-height: 320px;
+            padding: 18px 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            resize: vertical;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #fafcff;
+            transition: border 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+            border-color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(15,23,42,0.08);
+        }
+
+        .editor-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            gap: 12px;
+        }
+
+        .docx-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .docx-actions button {
+            background: #eef2f6;
+            border: 1px solid #d1d9e6;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .docx-actions button:hover {
+            background: #e2e8f0;
+        }
+
+        .page-nav {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .page-nav button {
+            background: white;
+            border: 1px solid #d1d9e6;
+            width: 34px;
+            height: 34px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .page-nav button:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* right sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .seo-panel, .ad-placeholder, .affiliate-resource {
+            background: white;
+            border-radius: 24px;
+            padding: 18px 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .seo-panel h3, .ad-placeholder h3, .affiliate-resource h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .seo-stats {
+            background: #f8fafc;
+            padding: 12px 14px;
+            border-radius: 16px;
+            margin: 12px 0 4px;
+            font-size: 0.9rem;
+        }
+
+        .seo-stats span {
+            font-weight: 600;
+        }
+
+        .ad-placeholder .ad-box {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 24px 12px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            border: 1px dashed #cbd5e1;
+            margin-top: 6px;
+        }
+
+        .affiliate-resource ul {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .affiliate-resource li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .affiliate-resource li:last-child {
+            border-bottom: none;
+        }
+
+        .affiliate-resource a {
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .affiliate-resource a:hover {
+            text-decoration: underline;
+        }
+
+        .privacy-note {
+            margin-top: 28px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #475569;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* mobile */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .editor-textarea {
+                min-height: 240px;
+                padding: 14px;
+            }
+        }
+
+        footer {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📄 DOCX 在线编辑器 · SEO 工具</h1>
+        <p>分页编辑 · 实时预览 · 免登录 · 导出 .docx</p>
+        <div class="seo-badge">✨ 免费 · SEO友好 · 支持分页</div>
+    </header>
+
+    <div class="tool-grid">
+        <!-- 核心编辑器 -->
+        <section class="editor-card" aria-label="DOCX 分页编辑器">
+            <h2><span>✏️</span> 分页编辑器</h2>
+            <div class="editor-toolbar">
+                <button id="insertH2Btn" title="插入标题">➕ 标题</button>
+                <button id="insertPBrBtn" title="插入分页符">📃 分页符</button>
+                <button id="clearContentBtn" title="清空内容">🗑️ 清空</button>
+                <span class="page-indicator" id="pageIndicator">📄 第 1 页</span>
+            </div>
+
+            <textarea id="docxEditor" class="editor-textarea" placeholder="在此输入文档内容……&#10;使用「分页符」按钮插入 - - - 分页 - - - 标记&#10;或手动输入 ===pagebreak===">这是第一页的内容。&#10;&#10;欢迎使用在线DOCX编辑器。&#10;&#10;--- 分页 ---&#10;&#10;这是第二页的内容。&#10;你可以继续编辑，导出为 .docx 文件。</textarea>
+
+            <div class="editor-footer">
+                <div class="docx-actions">
+                    <button id="exportDocxBtn" class="primary-action">⬇️ 导出 DOCX</button>
+                    <button id="previewDocxBtn">👁️ 预览分页</button>
+                </div>
+                <div class="page-nav">
+                    <button id="prevPageBtn" disabled>◀</button>
+                    <span id="pageNumDisplay">1/2</span>
+                    <button id="nextPageBtn">▶</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <!-- SEO 面板 -->
+            <div class="seo-panel">
+                <h3>🔍 SEO 即时分析</h3>
+                <div class="seo-stats">
+                    <div>📝 字数：<span id="wordCount">68</span></div>
+                    <div>🔑 关键词密度：<span id="keywordDensity">—</span></div>
+                    <div>📑 分页数：<span id="pageCount">2</span></div>
+                </div>
+                <div style="font-size:0.8rem; color:#64748b;">关键词：在线DOCX编辑器, 分页编辑, 免费工具</div>
+            </div>
+
+            <!-- 广告占位 -->
+            <div class="ad-placeholder">
+                <h3>📢 赞助</h3>
+                <div class="ad-box">
+                    <p><strong>📌 推荐工具</strong><br>⚡ 高速文档转换 · 云端备份</p>
+                    <p style="margin-top:6px; font-size:0.75rem;">📣 广告位 — 您的品牌</p>
+                </div>
+            </div>
+
+            <!-- 联盟/资源 -->
+            <div class="affiliate-resource">
+                <h3>📚 文档资源</h3>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener">📖 DOCX 模板库 (免费)</a></li>
+                    <li><a href="#" target="_blank" rel="noopener">✍️ SEO 写作指南</a></li>
+                    <li><a href="#" target="_blank" rel="noopener">🔗 分页编辑技巧</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 隐私说明 -->
+    <div class="privacy-note">
+        🔒 隐私说明：我们可能会匿名统计事件以改进产品。不会收集凭证或跟踪个人身份。
+        <span style="display:inline-block; margin-left:8px; opacity:0.7;">🍪 无追踪</span>
+    </div>
+
+    <footer>
+        <span>DOCX在线编辑器SEO工具 · 分页编辑 · 免费使用</span>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ---------- 全局指标上报 ----------
+        window.reportEvent = function(name, payload) {
+            if (typeof window.ORGANISM_METRICS_ENDPOINT === 'string' && window.ORGANISM_METRICS_ENDPOINT.length > 0) {
+                try {
+                    const body = JSON.stringify({ event: name, payload: payload || {}, timestamp: Date.now() });
+                    if (navigator.sendBeacon) {
+                        navigator.sendBeacon(window.ORGANISM_METRICS_ENDPOINT, body);
+                    } else {
+                        fetch(window.ORGANISM_METRICS_ENDPOINT, {
+                            method: 'POST',
+                            body: body,
+                            keepalive: true,
+                            headers: { 'Content-Type': 'application/json' }
+                        }).catch(() => {});
+                    }
+                } catch (e) {
+                    // 静默
+                }
+            }
+        };
+
+        // 上报一次页面加载
+        window.reportEvent('page_view', { tool: 'docx-editor-seo' });
+
+        // ---------- DOM 引用 ----------
+        const editor = document.getElementById('docxEditor');
+        const pageIndicator = document.getElementById('pageIndicator');
+        const pageNumDisplay = document.getElementById('pageNumDisplay');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+        const exportBtn = document.getElementById('exportDocxBtn');
+        const previewBtn = document.getElementById('previewDocxBtn');
+        const insertH2 = document.getElementById('insertH2Btn');
+        const insertPBr = document.getElementById('insertPBrBtn');
+        const clearBtn = document.getElementById('clearContentBtn');
+        const wordCountSpan = document.getElementById('wordCount');
+        const keywordDensitySpan = document.getElementById('keywordDensity');
+        const pageCountSpan = document.getElementById('pageCount');
+
+        // ---------- 分页逻辑 ----------
+        const PAGE_BREAK_MARKER = '--- 分页 ---';   // 显示标记
+        const PAGE_BREAK_RAW = '===pagebreak===';   // 内部兼容
+
+        function getPages(content) {
+            // 按分页符分割 (支持两种写法)
+            let raw = content.replace(/\r\n?/g, '\n');
+            // 将 ===pagebreak=== 统一替换为 --- 分页 --- 方便显示
+            raw = raw.replace(/===pagebreak===/gi, PAGE_BREAK_MARKER);
+            const parts = raw.split(new RegExp(`\\n*${PAGE_BREAK_MARKER}\\n*`, 'g'));
+            // 过滤掉空字符串，但保留空白页？保留一个空字符作为一页
+            const pages = parts.map(p => p.trim());
+            // 如果最后一个是空并且前面有内容，保留
+            return pages.length ? pages : [''];
+        }
+
+        function getCurrentPageIndex() {
+            // 基于光标位置估算当前页 (简单：根据文本中分页符数量)
+            const text = editor.value;
+            const pages = getPages(text);
+            const cursorPos = editor.selectionStart;
+            let accumulated = 0;
+            let pageIdx = 0;
+            // 重建带分页符的全文索引
+            const raw = text.replace(/\r\n?/g, '\n');
+            const normalized = raw.replace(/===pagebreak===/gi, PAGE_BREAK_MARKER);
+            const parts = normalized.split(new RegExp(`(${PAGE_BREAK_MARKER})`, 'g'));
+            let charCount = 0;
+            for (let i = 0; i < parts.length; i++) {
+                const part = parts[i];
+                if (part === PAGE_BREAK_MARKER) {
+                    charCount += part.length;  // 分隔符也占位
+                    if (charCount > cursorPos) break;
+                    pageIdx++;
+                    continue;
+                }
+                charCount += part.length;
+                if (charCount > cursorPos) break;
+            }
+            return Math.min(pageIdx, pages.length - 1);
+        }
+
+        function updatePageDisplay() {
+            const text = editor.value;
+            const pages = getPages(text);
+            const total = pages.length;
+            let current = getCurrentPageIndex();
+            if (current < 0) current = 0;
+            if (current >= total) current = total - 1;
+            const displayPage = total > 0 ? current + 1 : 1;
+            pageIndicator.textContent = `📄 第 ${displayPage} 页`;
+            pageNumDisplay.textContent = `${displayPage}/${total || 1}`;
+            pageCountSpan.textContent = total || 1;
+            prevBtn.disabled = (current <= 0);
+            nextBtn.disabled = (current >= total - 1);
+            // 更新SEO统计
+            updateSeoStats(text);
+        }
+
+        // ---------- SEO 统计 ----------
+        function updateSeoStats(text) {
+            const cleanText = text.replace(/---\s*分页\s*---/g, '').replace(/===pagebreak===/gi, '');
+            const words = cleanText.match(/[\w\u4e00-\u9fff]+/g) || [];
+            const wordCount = words.length;
+            wordCountSpan.textContent = wordCount;
+
+            // 关键词密度 (针对 "在线DOCX编辑器")
+            const keyword = '在线DOCX编辑器';
+            const lower = cleanText.toLowerCase();
+            const kwCount = (lower.match(/在线docx编辑器/g) || []).length;
+            if (wordCount > 0) {
+                const density = ((kwCount * 2) / wordCount * 100).toFixed(1);
+                keywordDensitySpan.textContent = `${density}% (${kwCount}次)`;
+            } else {
+                keywordDensitySpan.textContent = '0%';
+            }
+        }
+
+        // ---------- 导航 ----------
+        function goToPage(delta) {
+            const text = editor.value;
+            const pages = getPages(text);
+            let idx = getCurrentPageIndex();
+            idx = Math.min(Math.max(idx + delta, 0), pages.length - 1);
+            // 将光标定位到该页大致位置 (简单: 根据分页符累计)
+            const raw = text.replace(/\r\n?/g, '\n').replace(/===pagebreak===/gi, PAGE_BREAK_MARKER);
+            const parts = raw.split(new RegExp(`(${PAGE_BREAK_MARKER})`, 'g'));
+            let pos = 0;
+            let currentPage = 0;
+            for (let i = 0; i < parts.length; i++) {
+                if (currentPage === idx) break;
+                if (parts[i] === PAGE_BREAK_MARKER) {
+                    pos += parts[i].length;
+                    currentPage++;
+                    continue;
+                }
+                pos += parts[i].length;
+            }
+            editor.focus();
+            editor.setSelectionRange(pos, pos);
+            updatePageDisplay();
+            window.reportEvent('navigate_page', { direction: delta > 0 ? 'next' : 'prev', page: idx+1 });
+        }
+
+        prevBtn.addEventListener('click', () => goToPage(-1));
+        nextBtn.addEventListener('click', () => goToPage(1));
+
+        editor.addEventListener('input', updatePageDisplay);
+        editor.addEventListener('click', updatePageDisplay);
+        editor.addEventListener('keyup', updatePageDisplay);
+
+        // ---------- 插入内容 ----------
+        function insertAtCursor(text) {
+            const start = editor.selectionStart;
+            const end = editor.selectionEnd;
+            const before = editor.value.substring(0, start);
+            const after = editor.value.substring(end);
+            editor.value = before + text + after;
+            const newCursor = start + text.length;
+            editor.setSelectionRange(newCursor, newCursor);
+            editor.focus();
+            updatePageDisplay();
+            window.reportEvent('insert_content', { type: text.includes('分页') ? 'pagebreak' : 'heading' });
+        }
+
+        insertH2.addEventListener('click', () => insertAtCursor('\n## 标题\n'));
+        insertPBr.addEventListener('click', () => insertAtCursor(`\n\n${PAGE_BREAK_MARKER}\n\n`));
+
+        clearBtn.addEventListener('click', function() {
+            if (confirm('清空所有内容？')) {
+                editor.value = '';
+                updatePageDisplay();
+                window.reportEvent('clear_content', {});
+            }
+        });
+
+        // ---------- 导出 DOCX (使用Blob + 简单mhtml) ----------
+        function exportDocx() {
+            const content = editor.value || ' ';
+            // 构建简易的 .docx (实际是带有html的docx，大多数word处理器可打开)
+            const htmlContent = content
+                .replace(/---\s*分页\s*---/g, '<br clear="all" style="page-break-before:always">')
+                .replace(/===pagebreak===/gi, '<br clear="all" style="page-break-before:always">')
+                .replace(/\n/g, '<br>');
+            const docHtml = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+                      xmlns:w='urn:schemas-microsoft-com:office:word' 
+                      xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset="UTF-8"><title>DOCX 编辑器输出</title>
+                <style>body { font-family: 'Calibri', sans-serif; padding: 1.5cm; }</style>
+                </head>
+                <body>${htmlContent}</body></html>
+            `;
+            const blob = new Blob([docHtml], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `文档_${new Date().toISOString().slice(0,10)}.docx`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            window.reportEvent('export_docx', {});
+        }
+
+        exportBtn.addEventListener('click', exportDocx);
+
+        // ---------- 预览分页 (alert 展示) ----------
+        previewBtn.addEventListener('click', function() {
+            const pages = getPages(editor.value);
+            let preview = pages.map((p, i) => `📄 第 ${i+1} 页\n${p || '(空)'}`).join('\n\n————— 分页线 —————\n\n');
+            if (pages.length === 0) preview = '(空文档)';
+            alert(preview);
+            window.reportEvent('preview_pages', { pageCount: pages.length });
+        });
+
+        // ---------- 初始化 ----------
+        updatePageDisplay();
+
+        // 额外：点击导出上报
+        // 已经包含在函数中
+
+        // 暴露一些变量便于调试
+        console.log('DOCX在线编辑器已启动 · 分页编辑 · SEO工具');
+    })();
+</script>
+
+<section data-organism-discovery="hub" style="margin:32px auto 20px;max-width:1040px;padding:16px;border-top:1px solid #d9e2ec;color:#475569;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <strong style="display:block;color:#0f172a;margin-bottom:6px">More free browser tools</strong>
+  <p style="margin:0 0 8px">This page is part of an autonomous micro-tool network. Explore the live tool directory and related utilities.</p>
+  <p style="margin:0"><a href="https://kingms888.github.io/do-digital-organism-index/" style="color:#0f766e;font-weight:700">Open the tool directory</a> </p>
+</section>
+</body>
+</html>
